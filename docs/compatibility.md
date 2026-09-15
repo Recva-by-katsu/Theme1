@@ -5,19 +5,19 @@
 | Panel version | Status        | Notes                              |
 |---------------|---------------|------------------------------------|
 | 1.11.x        | ✅ Supported  | Recommended                        |
-| 1.10.x        | ✅ Supported  | Fully tested                       |
-| 1.9.x         | ⚠️ Best effort | Some admin views may differ        |
-| < 1.9         | ❌ Unsupported | Blade/React structure too different |
+| 1.10.x        | ✅ Supported  | Minimum supported version          |
+| < 1.10        | ❌ Unsupported | Use only with an explicitly tested payload |
 
 The installer auto-detects the version from `config/app.php` and refuses to
-continue on unsupported versions unless you pass `CONTINUE=1`.
+continue when it cannot verify a supported version unless you pass
+`CONTINUE=1`.
 
 ## Requirements
 
 - Node.js 18+ (20+ recommended)
 - `yarn` **or** `npm`
 - PHP 8.1+ with the Pterodactyl `artisan` CLI
-- `tar`, `cp`, `rsync` (rsync optional; `cp` fallback used)
+- `tar`
 
 ## What the installer touches
 
@@ -34,7 +34,7 @@ before any change and restored on rollback/uninstall:
 - The database (no migrations, no data changes)
 - User passwords / accounts
 - API keys or secrets
-- Any outbound network calls beyond fetching the theme release
+- Any outbound network calls
 
 ## Environment variables
 
@@ -43,4 +43,4 @@ before any change and restored on rollback/uninstall:
 | `PANEL_DIR`      | `/var/www/pterodactyl`      | Path to your panel install      |
 | `BACKUP_ROOT`    | `/var/backups/arena-playful`| Where backups are stored        |
 | `CONTINUE`       | `0`                         | Force install on unknown/old ver|
-| `THEME_REPO_RAW` | GitHub raw URL              | Override download source        |
+| `THEME_PAYLOAD_DIR` | `./pterodactyl` relative to installer | Compatible Pterodactyl payload |
