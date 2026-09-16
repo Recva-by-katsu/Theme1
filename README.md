@@ -69,41 +69,49 @@ toggle dark/light mode (top-right ☀️/🌙), and resize to test mobile.
 
 ## 📦 Install on a real Pterodactyl panel
 
-> **This repository currently contains the interactive preview only, not a
-> Pterodactyl integration payload.** The installer intentionally stops before
-> changing a panel unless a compatible payload is supplied. It must mirror the
-> Pterodactyl project root and include `resources/scripts/index.tsx`.
->
-> Always take your own backup first. The installer also creates an exact
-> archive backup of every panel path it changes.
+Run this **on your panel server** (as root or with sudo):
 
-There is intentionally no copy-paste install command yet. A future release
-must first include the compatible payload; only then will its release notes
-provide the exact `THEME_PAYLOAD_DIR` command. Do **not** use the literal
-`/path/to/pterodactyl-payload` placeholder.
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/Recva-by-katsu/Theme1/master/install.sh)
+```
 
-The installer validates the payload and panel version, creates a backup,
-applies the payload, builds assets, and clears caches. If a post-backup step
-fails, it restores the archive automatically. It does not accept `curl | bash`
-installation because that cannot safely provide the required payload.
+What gets installed is the **CSS overlay theme**
+([`pterodactyl/theme.css`](pterodactyl/theme.css)) — it restyles the stock
+Pterodactyl 1.x frontend with the Playful Premium look (colors, cards,
+buttons, inputs, scrollbars) **without replacing any panel code**, so it is
+safe, fast, and reversible:
 
-1. Detect Pterodactyl → 2. Detect version → 3. Check compatibility →
-4. Check dependencies → 5. Backup originals → 6. Install theme →
-7. Build assets → 8. Clear cache → 9. Verify → 10. Report.
+1. Detect Pterodactyl → 2. Detect version (needs ≥ 1.10, or `CONTINUE=1`) →
+3. Download & validate `theme.css` → 4. Backup `wrapper.blade.php` →
+5. Copy CSS to `public/themes/arena-playful/` → 6. Inject one `<link>` tag →
+7. Clear the view cache.
 
-If **any** step fails it automatically **rolls back** to the previous state.
+If any step after the backup fails, the wrapper is **restored automatically**.
+No rebuild of panel assets is required — just hard-refresh your browser.
+
+> The full React preview in `src/` is a design showcase; the deployable
+> artifact for a live panel is the CSS overlay above.
+
+If your panel is not at `/var/www/pterodactyl`:
+
+```bash
+PANEL_DIR=/srv/pterodactyl bash <(curl -fsSL https://raw.githubusercontent.com/Recva-by-katsu/Theme1/master/install.sh)
+```
 
 ### Update
 
 ```bash
-THEME_PAYLOAD_DIR=/path/to/pterodactyl-payload bash update.sh
+bash <(curl -fsSL https://raw.githubusercontent.com/Recva-by-katsu/Theme1/master/update.sh)
 ```
 
 ### Uninstall
 
 ```bash
-bash uninstall.sh   # restores the most recent exact backup and rebuilds
+bash <(curl -fsSL https://raw.githubusercontent.com/Recva-by-katsu/Theme1/master/uninstall.sh)
 ```
+
+Uninstall restores the exact pre-install `wrapper.blade.php` backup (or, if no
+backup exists, removes the injected tag) and deletes the theme files.
 
 Configure paths via env vars — see [`docs/compatibility.md`](docs/compatibility.md).
 

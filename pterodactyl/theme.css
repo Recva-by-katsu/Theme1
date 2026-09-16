@@ -1,0 +1,128 @@
+/* arena-playful — ArenaPanel Playful Premium theme overlay for Pterodactyl 1.x
+   Applied via /themes/arena-playful/theme.css, injected into wrapper.blade.php. */
+
+:root {
+  --arena-brand-300: #a5b4fc;
+  --arena-brand-400: #818cf8;
+  --arena-brand-500: #6366f1;
+  --arena-brand-600: #4f46e5;
+  --arena-brand-700: #4338ca;
+  --arena-mint-500: #10b981;
+  --arena-candy-500: #ec4899;
+  --arena-bg: #0a0b12;
+  --arena-surface: #11131d;
+  --arena-surface-2: #171a28;
+  --arena-border: rgba(255, 255, 255, 0.08);
+  --arena-radius: 12px;
+}
+
+/* Base canvas */
+body {
+  background:
+    radial-gradient(60rem 40rem at -10% -10%, rgba(99, 102, 241, 0.16), transparent 60%),
+    radial-gradient(50rem 35rem at 110% 110%, rgba(236, 72, 153, 0.10), transparent 60%),
+    var(--arena-bg) !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbars */
+* { scrollbar-width: thin; scrollbar-color: rgba(129, 140, 248, 0.35) transparent; }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: rgba(129, 140, 248, 0.35);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* Panel surfaces (stock Pterodactyl uses these neutral utility classes) */
+.bg-neutral-700, .bg-\[\#141517\] { background-color: var(--arena-surface) !important; }
+.bg-neutral-800 { background-color: var(--arena-surface-2) !important; }
+.bg-neutral-900 { background-color: var(--arena-bg) !important; }
+.bg-neutral-600 { background-color: #1c2033 !important; }
+.bg-neutral-500 { background-color: #232842 !important; }
+
+.border-neutral-800, .border-neutral-700, .border-neutral-600 {
+  border-color: var(--arena-border) !important;
+}
+
+/* Rounded, softly elevated cards */
+.bg-neutral-700, .bg-neutral-800 {
+  border-radius: var(--arena-radius);
+  box-shadow: 0 1px 2px rgba(2, 4, 18, 0.35), 0 14px 34px -18px rgba(79, 70, 229, 0.45);
+}
+
+/* Navigation bar */
+#app > div > div.w-full.bg-neutral-900,
+.navigation-bar,
+nav {
+  background: rgba(13, 15, 24, 0.92) !important;
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--arena-border);
+}
+
+/* Links & accents */
+a { color: var(--arena-brand-300); }
+a:hover { color: var(--arena-brand-400); }
+
+.text-primary-400, .text-blue-400, .text-cyan-400 { color: var(--arena-brand-400) !important; }
+.text-primary-500, .text-blue-500 { color: var(--arena-brand-500) !important; }
+
+/* Primary buttons */
+.bg-primary-500, .bg-blue-500, .bg-blue-600,
+button[color="primary"] {
+  background-image: linear-gradient(135deg, var(--arena-brand-500), var(--arena-brand-700)) !important;
+  background-color: var(--arena-brand-600) !important;
+  border: none !important;
+  border-radius: var(--arena-radius) !important;
+  box-shadow: 0 10px 24px -12px rgba(79, 70, 229, 0.7);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.bg-primary-500:hover, .bg-blue-500:hover, .bg-blue-600:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px -12px rgba(79, 70, 229, 0.85);
+}
+
+/* Success / danger accents */
+.bg-green-500, .bg-green-600 { background-color: var(--arena-mint-500) !important; border-radius: var(--arena-radius) !important; }
+.bg-red-500, .bg-red-600 { border-radius: var(--arena-radius) !important; }
+
+/* Status dots and progress bars */
+.bg-green-400 { background-color: #34d399 !important; }
+.bg-yellow-400 { background-color: #fbbf24 !important; }
+
+/* Inputs */
+input[type="text"], input[type="password"], input[type="email"],
+input[type="number"], select, textarea {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid var(--arena-border) !important;
+  border-radius: var(--arena-radius) !important;
+  color: #e2e8f0 !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--arena-brand-400) !important;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18) !important;
+  outline: none !important;
+}
+
+/* Tables */
+table thead th { color: #94a3b8 !important; }
+table tbody tr:hover { background-color: rgba(99, 102, 241, 0.06) !important; }
+
+/* Server console */
+.terminal, [class*="Console"] pre, .xterm-viewport {
+  border-radius: var(--arena-radius);
+}
+
+/* Login screen */
+form[action*="login"] button[type="submit"],
+form button[type="submit"] {
+  border-radius: var(--arena-radius) !important;
+}
+
+/* Reduced motion friendliness */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.001ms !important; }
+}

@@ -10,7 +10,7 @@ main() {
   local backup="${1:-${BACKUP_ROOT}/latest}"
   is_pterodactyl || { log_err "Not a Pterodactyl panel at ${PANEL_DIR}"; exit 1; }
   restore_backup "${backup}"
-  clear_panel_cache
+  clear_panel_view_cache
   log_ok "Restore complete from ${backup}"
 }
 main "$@"
