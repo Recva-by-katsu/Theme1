@@ -10,8 +10,8 @@ This repository contains:
 
 1. A **live, interactive preview** of the entire theme (React + Vite + Tailwind)
    — run it locally to click through every page.
-2. Production **installer / updater / uninstaller** scripts for a real
-   Pterodactyl deployment, with backup + rollback safety.
+2. Safety-first deployment scripts for a real Pterodactyl integration
+   payload, with exact backup and rollback support.
 
 ---
 
@@ -69,17 +69,25 @@ toggle dark/light mode (top-right ☀️/🌙), and resize to test mobile.
 
 ## 📦 Install on a real Pterodactyl panel
 
-> Always take your own backup first. The installer also backs up automatically.
+> **This repository currently contains the interactive preview only, not a
+> Pterodactyl integration payload.** The installer intentionally stops before
+> changing a panel unless a compatible payload is supplied. It must mirror the
+> Pterodactyl project root and include `resources/scripts/index.tsx`.
+>
+> Always take your own backup first. The installer also creates an exact
+> archive backup of every panel path it changes.
 
 ```bash
-# via wget
-wget -qO- https://raw.githubusercontent.com/USERNAME/REPOSITORY/main/install.sh | bash
-
-# via curl
-curl -fsSL https://raw.githubusercontent.com/USERNAME/REPOSITORY/main/install.sh | bash
+# Clone the repository so the installer and payload are available locally.
+git clone https://github.com/Recva-by-katsu/Theme1.git arenapanel
+cd arenapanel
+THEME_PAYLOAD_DIR=/path/to/pterodactyl-payload PANEL_DIR=/var/www/pterodactyl bash install.sh
 ```
 
-The installer is **idempotent** and performs 10 safe steps:
+The installer validates the payload and panel version, creates a backup,
+applies the payload, builds assets, and clears caches. If a post-backup step
+fails, it restores the archive automatically. It does not accept `curl | bash`
+installation because that cannot safely provide the required payload.
 
 1. Detect Pterodactyl → 2. Detect version → 3. Check compatibility →
 4. Check dependencies → 5. Backup originals → 6. Install theme →
@@ -90,13 +98,13 @@ If **any** step fails it automatically **rolls back** to the previous state.
 ### Update
 
 ```bash
-bash update.sh   # snapshots, pulls latest, preserves user.config.ts, rebuilds
+THEME_PAYLOAD_DIR=/path/to/pterodactyl-payload bash update.sh
 ```
 
 ### Uninstall
 
 ```bash
-bash uninstall.sh   # restores the most recent backup, removes theme files
+bash uninstall.sh   # restores the most recent exact backup and rebuilds
 ```
 
 Configure paths via env vars — see [`docs/compatibility.md`](docs/compatibility.md).
