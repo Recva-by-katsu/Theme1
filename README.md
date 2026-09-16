@@ -77,12 +77,10 @@ toggle dark/light mode (top-right ☀️/🌙), and resize to test mobile.
 > Always take your own backup first. The installer also creates an exact
 > archive backup of every panel path it changes.
 
-```bash
-# Clone the repository so the installer and payload are available locally.
-git clone https://github.com/Recva-by-katsu/Theme1.git arenapanel
-cd arenapanel
-THEME_PAYLOAD_DIR=/path/to/pterodactyl-payload PANEL_DIR=/var/www/pterodactyl bash install.sh
-```
+There is intentionally no copy-paste install command yet. A future release
+must first include the compatible payload; only then will its release notes
+provide the exact `THEME_PAYLOAD_DIR` command. Do **not** use the literal
+`/path/to/pterodactyl-payload` placeholder.
 
 The installer validates the payload and panel version, creates a backup,
 applies the payload, builds assets, and clears caches. If a post-backup step
